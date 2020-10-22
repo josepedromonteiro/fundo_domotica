@@ -1,0 +1,14 @@
+app-fogao {
+  .fogao {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    padding-right: 20px;
+
+    div {
+      width: 50%;
+      padding: 5px;
+    }
+  }
+}

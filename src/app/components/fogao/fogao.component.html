@@ -1,0 +1,5 @@
+<div class="fogao">
+    <div *ngFor="let boca of bocas; let i = index" (click)="changeValue(i)">
+        <img [src]="'assets/'+boca.value+'.png'">
+    </div>
+</div>

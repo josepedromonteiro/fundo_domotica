@@ -1,0 +1,112 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            Fundo Domotica
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title size="large">Blank</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <!--    <div class="divisions">-->
+    <!--        <div class="division wc">-->
+    <!--            <div class="name">WC</div>-->
+    <!--            <div class="sensors">-->
+    <!--                <app-light class="is-50"></app-light>-->
+    <!--                <app-alarme class="is-50"></app-alarme>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="division sala">-->
+    <!--            <div class="name">Sala</div>-->
+    <!--            <div class="sensors">-->
+    <!--                <app-light class="is-33"></app-light>-->
+    <!--                <app-alarme class="is-33"></app-alarme>-->
+    <!--                <app-termometro class="is-33"></app-termometro>-->
+    <!--            </div>-->
+    <!--            <app-temperature-controller></app-temperature-controller>-->
+    <!--        </div>-->
+    <!--        <div class="division quarto">-->
+    <!--            <div class="name">Quarto</div>-->
+    <!--            <div class="sensors">-->
+    <!--                <app-light class="is-33"></app-light>-->
+    <!--                <app-alarme class="is-33"></app-alarme>-->
+    <!--                <app-alarme class="is-33"></app-alarme>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="division cozinha">-->
+    <!--            <div class="name">Cozinha</div>-->
+    <!--            <div class="sensors">-->
+    <!--                <app-light class="is-25"></app-light>-->
+    <!--                <app-alarme class="is-25"></app-alarme>-->
+    <!--                <app-light class="is-25"></app-light>-->
+    <!--                <app-alarme class="is-25"></app-alarme>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="division escada">-->
+    <!--            <div class="name">Escada</div>-->
+    <!--            <div class="sensors">-->
+    <!--                <app-light class="is-50"></app-light>-->
+    <!--                <app-alarme class="is-50"></app-alarme>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <div class="divisions">
+        <div class="division" *ngFor="let division of getKeys(home.divisions)"
+             [ngClass]="home.divisions[division].class">
+            <div class="name">{{home.divisions[division].name}}</div>
+            <div class="sensors">
+                <ng-container *ngFor="let sensor of getKeys(home.divisions[division].elements)">
+                    <app-light [id]="division+'-'+home.divisions[division].elements[sensor]"
+                               [isTurnedOn]="home.divisions[division].elements[sensor].controller?.value"
+                               *ngIf="home.divisions[division].elements[sensor].type === 'light'"
+                               class="sensor"
+                               [ngClass]="home.divisions[division].elements[sensor].class"
+                               (click)="clickSensor(division, sensor)"></app-light>
+                    <app-alarme [id]="division+'-'+sensor"
+                                [isTurnedOn]="home.divisions[division].elements[sensor].controller?.value"
+                                *ngIf="home.divisions[division].elements[sensor].type === 'alarm'"
+                                class="sensor"
+                                [ngClass]="home.divisions[division].elements[sensor].class"
+                                (click)="clickSensor(division, sensor)"></app-alarme>
+                    <app-termometro [id]="division+'-'+sensor"
+                                    *ngIf="home.divisions[division].elements[sensor].type === 'termometro'"
+                                    [temperature]="home.divisions[division].elements[sensor].controller.value"
+                                    class="sensor"
+                                    [ngClass]="home.divisions[division].elements[sensor].class"
+                                    (click)="clickSensor(division, sensor)"></app-termometro>
+                    <app-fogao [id]="division+'-'+sensor"
+                               *ngIf="home.divisions[division].elements[sensor].type === 'fogao'"
+                               class="sensor"
+                               [bocas]="home.divisions[division].elements[sensor].bocas"
+                               [ngClass]="home.divisions[division].elements[sensor].class"
+                               (activeBocaIndex)="home.divisions[division].elements[sensor].activeBocaIndex = $event"
+                               (click)="clickSensor(division, sensor)"></app-fogao>
+                </ng-container>
+            </div>
+            <div class="controllers" [ngClass]="!home.divisions[division].showControlCenter ?'hide':''">
+                <ng-container *ngFor="let sensor of getKeys(home.divisions[division].elements)">
+                    <ng-container
+                            *ngIf="home.divisions[division].elements[sensor].controller?.isShowing && home.divisions[division].elements[sensor].controller?.type == 'range'">
+                        <div class="control-center">{{home.divisions[division].elements[sensor].type}} controller</div>
+                        <app-temperature-controller
+                                *ngIf="home.divisions[division].elements[sensor].controller.type === 'range'"
+                                [(value)]="home.divisions[division].elements[sensor].controller.value"
+                                [id]="division+'-'+sensor+'-controller'"
+                        ></app-temperature-controller>
+                        <app-fogao-controller
+                                *ngIf="home.divisions[division].elements[sensor].controller.type === 'buttons'"
+                                [(value)]="home.divisions[division].elements[sensor].bocas[home.divisions[division].elements[sensor].activeBocaIndex]"
+                                [id]="division+'-'+sensor+'-controller'"
+                        ></app-fogao-controller>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ion-content>
