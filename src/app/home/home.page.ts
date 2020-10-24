@@ -278,16 +278,16 @@ export class HomePage {
     this.electronService.remote.BrowserWindow.getFocusedWindow().minimize();
   }
 
-  plus(){
-
-    if(this.electronService.remote.BrowserWindow.getFocusedWindow().isMaximized() || this.electronService.remote.BrowserWindow.getFocusedWindow().isFullScreen()){
-      this.electronService.remote.BrowserWindow.getFocusedWindow().restore();
-      this.showRestore = false;
-      return;
-    }
-    this.electronService.remote.BrowserWindow.getFocusedWindow().maximize();
-    this.showRestore = true;
-  }
+  // plus(){
+  //
+  //   if(this.electronService.remote.BrowserWindow.getFocusedWindow().isMaximized() || this.electronService.remote.BrowserWindow.getFocusedWindow().isFullScreen()){
+  //     this.electronService.remote.BrowserWindow.getFocusedWindow().restore();
+  //     this.showRestore = false;
+  //     return;
+  //   }
+  //   this.electronService.remote.BrowserWindow.getFocusedWindow().fullScreen();
+  //   this.showRestore = true;
+  // }
 
   close(){
     this.electronService.remote.getCurrentWindow().close();

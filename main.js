@@ -11,8 +11,8 @@ app.commandLine.appendSwitch('enable-transparent-visuals');
 
 function createWindow () {
     mainWindow = new BrowserWindow({
-        width: 1000,
-        height: 750,
+        width: 1100,
+        height: 800,
         transparent: true,
         frame: false,
         show: false,
