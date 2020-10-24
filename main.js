@@ -16,6 +16,7 @@ function createWindow () {
         transparent: true,
         frame: false,
         show: false,
+        fullscreenable: false,
         webPreferences: {
             nodeIntegration: true,
             enableRemoteModule: true,
@@ -35,7 +36,7 @@ function createWindow () {
         path.join(__dirname, `/www/index.html`)
     );
     // Open the DevTools.
-   mainWindow.webContents.openDevTools({mode:'undocked'})
+   // mainWindow.webContents.openDevTools({mode:'undocked'})
 
     mainWindow.on('closed', function () {
         mainWindow = null
@@ -69,3 +70,10 @@ app.on('ready', () => {
         }, 7000)
     });
 });
+
+
+const setupEvents = require('./installers/setupEvents')
+if (setupEvents.handleSquirrelEvent()) {
+    // squirrel event handled and app will exit in 1000ms, so don't do anything else
+    return;
+}
