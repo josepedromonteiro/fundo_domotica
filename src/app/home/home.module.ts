@@ -12,6 +12,8 @@ import { TermometroComponent } from '../components/termometro/termometro.compone
 import { SwitchControllerComponent } from '../components/switch-controller/switch-controller.component';
 import { FogaoComponent } from '../components/fogao/fogao.component';
 import { FogaoControllerComponent } from '../components/fogao-controller/fogao-controller.component';
+import {NgxElectronModule} from 'ngx-electron';
+import {ScrollbarThemeModule} from '../directive/scrollbar.directive';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { FogaoControllerComponent } from '../components/fogao-controller/fogao-c
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    NgxElectronModule,
+    ScrollbarThemeModule
   ],
   declarations: [HomePage, LightComponent, AlarmeComponent, TemperatureControllerComponent, TermometroComponent, SwitchControllerComponent, FogaoComponent, FogaoControllerComponent]
 })

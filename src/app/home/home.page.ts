@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { DEFAULT_TEMPERATURE } from '../components/termometro/termometro.component';
 import { FogaoLevels } from '../components/fogao/fogao.component';
+import {ElectronService} from "ngx-electron";
 
 export type DElement = 'light' | 'fogao' | 'alarm' | 'termometro';
 export type DController = 'range' | 'switch' | 'buttons';
@@ -46,8 +47,9 @@ export interface Home {
 export class HomePage {
 
   public home: Home;
+  public showRestore: boolean = false;
 
-  constructor() {
+  constructor(private electronService: ElectronService) {
     this.home = {
       divisions: {
         wc: {
@@ -271,4 +273,24 @@ export class HomePage {
       this.home.divisions[divisionKey].elements[sensorId].controller.isShowing = isShowing;
     }
   }
+
+  minus(){
+    this.electronService.remote.BrowserWindow.getFocusedWindow().minimize();
+  }
+
+  plus(){
+
+    if(this.electronService.remote.BrowserWindow.getFocusedWindow().isMaximized() || this.electronService.remote.BrowserWindow.getFocusedWindow().isFullScreen()){
+      this.electronService.remote.BrowserWindow.getFocusedWindow().restore();
+      this.showRestore = false;
+      return;
+    }
+    this.electronService.remote.BrowserWindow.getFocusedWindow().maximize();
+    this.showRestore = true;
+  }
+
+  close(){
+    this.electronService.remote.getCurrentWindow().close();
+  }
 }
+

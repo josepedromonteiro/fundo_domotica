@@ -6,7 +6,24 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+
+<ion-buttons slot="end" class="ion-buttons">
+
+    <ion-button class="minus" (click)="minus()">
+        <ion-icon slot="icon-only" name="remove"></ion-icon>
+    </ion-button>
+
+    <ion-button class="plus" (click)="plus()">
+        <ion-icon *ngIf="!showRestore" slot="icon-only" name="add"></ion-icon>
+        <ion-icon *ngIf="showRestore" slot="icon-only" name="copy-outline"></ion-icon>
+    </ion-button>
+
+    <ion-button class="close" (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
+</ion-buttons>
+
+<ion-content [fullscreen]="true" scrollbar>
     <ion-header collapse="condense">
         <ion-toolbar>
             <ion-title size="large">Blank</ion-title>
@@ -90,6 +107,7 @@
                 </ng-container>
             </div>
             <div class="controllers" [ngClass]="!home.divisions[division].showControlCenter ?'hide':''">
+                <div class="c-container">
                 <ng-container *ngFor="let sensor of getKeys(home.divisions[division].elements)">
                     <ng-container
                             *ngIf="home.divisions[division].elements[sensor].controller?.isShowing && home.divisions[division].elements[sensor].controller?.type == 'range'">
@@ -106,6 +124,7 @@
                         ></app-fogao-controller>
                     </ng-container>
                 </ng-container>
+                </div>
             </div>
         </div>
     </div>

@@ -24,3 +24,24 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+html, body, ion-app, ion-router-outlet, app-home{
+  background-color: transparent;
+  border-radius: 20px;
+}
+
+ion-app{
+  //border-radius: 20px;
+
+  margin: 30px;
+  box-shadow: 0 10px 20px 0 rgba(0,0,0,.3);
+}
+
+*{
+  background-color: transparent;
+  background: transparent;
+  scrollbar-color: rgba(0, 0, 0, 0.2) hsla(0, 0%, 100%, 0.1);
+  scrollbar-width: thin;
+}
+
+

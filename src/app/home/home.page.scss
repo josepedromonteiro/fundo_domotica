@@ -1,9 +1,60 @@
 app-home {
   $radius: 15px;
 
-  ion-toolbar{
-    padding-top: 20px!important;
+
+  ion-title {
+    user-select: none;
   }
+
+
+  .ion-buttons {
+    position: fixed;
+    top: 20px;
+    right: 10px;
+    margin-top: -15px;
+
+    -webkit-app-region: no-drag;
+
+    ion-button {
+      font-size: 10px;
+      padding: 3px;
+      border-radius: 50%;
+      margin: 5px !important;
+      height: 20px !important;
+      width: 20px !important;
+      color: white;
+      $padding: 5px;
+      --padding-top: $padding !important;
+      --padding-end: $padding !important;
+      --padding-bottom: $padding !important;
+      --padding-start: $padding !important;
+    }
+
+    .minus {
+      background-color: rgba(219, 157, 1, 0.9);
+    }
+
+    .plus {
+      background-color: rgba(5, 181, 49, 0.9);
+    }
+
+    .close {
+      background-color: rgba(214, 7, 7, 0.9);
+    }
+  }
+
+  ion-toolbar {
+    padding-top: 20px !important;
+    --background: rgba(var(--ion-color-light-rgb), 0.98);
+    background-color: rgba(var(--ion-color-light-rgb), 0.98);
+    //backdrop-filter: blur(15px) saturate(180%);
+    -webkit-app-region: drag;
+
+    ion-title {
+      font-weight: bold;
+    }
+  }
+
   .control-center {
     font-weight: bold;
     font-size: 20px;
@@ -14,11 +65,16 @@ app-home {
   .controllers {
     position: absolute;
     width: 100%;
-    background-color: rgba(var(--ion-color-dark-rgb), 0.1);
-    border-radius: $radius $radius 0 0;
     bottom: 0;
     transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    z-index: 90;
+    margin: auto;
+
+    .c-container {
+      background-color: rgba(var(--ion-color-dark-rgb), 0.1);
+      border-radius: $radius $radius 0 0;
+      margin: auto;
+      max-width: 500px;
+    }
 
     &.hide {
       transform: translateY(100%);
@@ -104,11 +160,12 @@ app-home {
       }
     }
 
-    .increase{
-      .value{
+    .increase {
+      .value {
         //transform: translateY(15px);
       }
     }
+
     .value {
       font-weight: bold;
       text-transform: uppercase;
@@ -125,7 +182,7 @@ app-home {
       transform: scale(1);
       opacity: 1;
       cursor: pointer;
-      z-index: 99;
+      //z-index: 99;
     }
 
     .increase {
